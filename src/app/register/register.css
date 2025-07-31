@@ -1,0 +1,103 @@
+/* Reset & body */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body, :host {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Vensterknoppen */
+.window-bar {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.window-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.window-btn.red    { background: #ff5f56; }
+.window-btn.yellow { background: #ffbd2e; }
+.window-btn.green  { background: #27c93f; }
+
+/* Navigatiebalk */
+.top-nav {
+  background-color: #dae8fc;
+  padding: 12px 20px;
+}
+.top-nav .logo {
+  font-weight: bold;
+}
+
+/* Main & form container */
+main {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+}
+
+/* Titels */
+.form-container h1 {
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+}
+.subheading {
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+.subheading a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+label {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+input, select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  width: 100%;
+}
+button[type="submit"] {
+  padding: 12px;
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+/* Validatie‑errors */
+.error {
+  color: #d00;
+  font-size: 0.75rem;
+  text-align: left;
+}

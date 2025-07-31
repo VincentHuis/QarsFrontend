@@ -1,0 +1,23 @@
+<section class="page">
+  <h1>Vestiging</h1>
+
+  <div *ngIf="loading">Laden…</div>
+  <div *ngIf="!loading && error" class="error" role="alert">{{ error }}</div>
+
+  <ng-container *ngIf="!loading && !error">
+    <button type="button" (click)="back()" class="back">Terug naar overzicht</button>
+
+    <article class="card">
+      <header class="card__header">
+        <h2 class="card__title">{{ v.naam }}</h2>
+      </header>
+
+      <div class="card__body">
+        <p class="card__line">{{ v.adres.straat }} {{ v.adres.huisnummer }}</p>
+        <p class="card__line">{{ v.adres.postcode }} {{ v.adres.woonplaats }}</p>
+
+
+      </div>
+    </article>
+  </ng-container>
+</section>

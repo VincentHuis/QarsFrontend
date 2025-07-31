@@ -1,0 +1,41 @@
+<main>
+  <div class="form-container">
+    <h1>Creëer een nieuw account</h1>
+    <p class="subheading">
+      Heeft u al een account?
+      <a routerLink="/login">Login</a>
+    </p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div formGroupName="klant">
+        <label for="voornaam">Voornaam</label>
+        <input id="voornaam" formControlName="voornaam" placeholder="Lightning">
+
+        <label for="achternaam">Achternaam</label>
+        <input id="achternaam" formControlName="achternaam" placeholder="Mcqueen ">
+
+
+        <label for="telefoonnummer">Telefoonnummer</label>
+        <input id="telefoonnummer" formControlName="telefoonnummer" placeholder="0612345678">
+
+
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" placeholder="l.mcqueen@example.com">
+
+
+        <label for="geboortedatum">Geboortedatum</label>
+        <input id="geboortedatum" type="date" formControlName="geboortedatum">
+
+        <label for="password">Wachtwoord</label>
+        <input id="password" type="password" formControlName="password" placeholder="*********">
+
+        <label for="confirmPassword">Bevestig wachtwoord</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="*********">
+      </div>
+
+
+      <button type="submit">Registreren</button>
+    </form>
+  </div>
+</main>

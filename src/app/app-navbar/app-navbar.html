@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a class="navbar-brand" routerLink="/">Qars</a>
+    <button
+      class="navbar-toggle"
+      aria-label="Menu openen/sluiten"
+      (click)="menuOpen = !menuOpen"
+      [attr.aria-expanded]="menuOpen"
+    >
+      <span class="navbar-toggle-bar"></span>
+      <span class="navbar-toggle-bar"></span>
+      <span class="navbar-toggle-bar"></span>
+    </button>
+    <ul class="navbar-menu" [class.open]="menuOpen">
+      <li>
+        <a routerLink="/vestigingen" routerLinkActive="active">Vestiging</a>
+      </li>
+      <li>
+        <a routerLink="/login" routerLinkActive="active">Aanmelden</a>
+      </li>
+      <li>
+        <a routerLink="/register" routerLinkActive="active">Registreren</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,25 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <h2>Login</h2>
+
+    <div>
+      <label for="username">Gebruikersnaam</label>
+      <input id="username" formControlName="username" type="text" />
+      <div class="error" *ngIf="submitted && loginForm.controls['username'].errors">
+        Gebruikersnaam is verplicht.
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Wachtwoord</label>
+      <input id="password" formControlName="password" type="password" />
+      <div class="error" *ngIf="submitted && loginForm.controls['password'].errors">
+        Wachtwoord is verplicht.!
+      </div>
+    </div>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <button type="submit">Inloggen</button>
+  </form>
+</div>

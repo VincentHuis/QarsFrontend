@@ -1,0 +1,93 @@
+<!-- vestiging-overzicht.html -->
+<section class="page">
+  <style>
+    /* Forceer 2 kolommen; op mobiel terug naar 1 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <h1>Vestigingen</h1>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar__section">
+        <div class="sidebar__label">Resultaten</div>
+        <div class="sidebar__counter">
+          <svg class="pin" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C8.686 2 6 4.686 6 8c0 4.42 6 12 6 12s6-7.58 6-12c0-3.314-2.686-6-6-6zm0 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+          </svg>
+          <div class="sidebar__lines">
+            <div class="line line--sm">
+              {{ filteredVestigingen.length }} vestigingen
+            </div>
+            <div class="line line--xs muted">
+              {{ searchCtrl.value.trim() ? searchCtrl.value : 'Alle locaties' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter op plaatsnaam -->
+      <div class="sidebar__section">
+        <label for="plaatsFilter" class="sidebar__label">Filter op plaats</label>
+        <div class="inputwrap">
+          <input
+            id="plaatsFilter"
+            type="text"
+            [formControl]="searchCtrl"
+            autocomplete="off"
+            placeholder="Typ (deel van) plaatsnaam…"
+            aria-label="Filter op plaatsnaam" />
+          <button
+            type="button"
+            class="clearbtn"
+            (click)="clearSearch()"
+            *ngIf="searchCtrl.value.length > 0"
+            aria-label="Verwijder filter">
+            ×
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="grid" *ngIf="filteredVestigingen.length > 0; else geenResultaten">
+        <article
+          class="card"
+          *ngFor="let v of filteredVestigingen; trackBy: trackById"
+          [routerLink]="['/vestigingen', v.id]"
+          tabindex="0"
+          role="link"
+          [attr.aria-label]="ariaLabel(v)">
+
+          <div class="card__accent"></div>
+
+          <header class="card__header">
+            <h3 class="card__title">{{ v.naam }}</h3>
+          </header>
+
+          <div class="card__body">
+            <p class="card__line">{{ v.adres.straat }} {{ v.adres.huisnummer }}</p>
+            <p class="card__line">{{ v.adres.postcode }} {{ v.adres.woonplaats }}</p>
+          </div>
+
+          <footer class="card__footer">
+            <span class="linklike">Bekijk vestiging →</span>
+          </footer>
+        </article>
+      </div>
+
+      <ng-template #geenResultaten>
+        <p class="empty" role="status" aria-live="polite">Geen resultaten gevonden</p>
+      </ng-template>
+    </main>
+  </div>
+</section>

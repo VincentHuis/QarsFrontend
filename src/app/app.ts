@@ -1,12 +1,21 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { AppNavbar } from './app-navbar/app-navbar';
+import {ReactiveFormsModule} from '@angular/forms';
+import {RegisterComponent} from './register/register';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    //RouterLink,
+    ReactiveFormsModule,
+    AppNavbar,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('Qars-Frontend');
+  protected title = 'Qars';
 }

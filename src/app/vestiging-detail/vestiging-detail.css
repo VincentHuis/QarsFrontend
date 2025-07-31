@@ -1,0 +1,8 @@
+.page { display: block; }
+.back { margin-bottom: 12px; }
+.error { color: #b00020; font-weight: 600; }
+.card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; }
+.card__header { margin-bottom: 8px; }
+.card__title { margin: 0; }
+.card__line { margin: 4px 0; }
+.linklike { text-decoration: underline; cursor: pointer; }
