@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 // import { CommonModule } from '@angular/common'; // alleen nodig als je *ngIf/NgFor gebruikt in deze template
 
 import { KlantDto } from '../dto/KlantDto';
 import { RegisterDto } from '../dto/RegisterDto';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -14,28 +15,40 @@ import { RegisterDto } from '../dto/RegisterDto';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   styleUrls: ['./register.css']
 })
 export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup;
+  serverError: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private router: Router
+) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       klant: this.fb.group({
         voornaam:       ['', Validators.required],
         achternaam:     ['', Validators.required],
-        telefoonnummer: ['', Validators.required],
-        email:          ['', [Validators.required, Validators.email]],
+        telefoonnummer: ['', [
+          Validators.required,
+          Validators.pattern(/^06[0-9]{8}$/)
+        ]],
+        email:          ['', [
+          Validators.required,
+          Validators.email
+        ]],
         geboortedatum:  ['', Validators.required],
-        password:       ['', [Validators.required, Validators.minLength(7)]],
+        password:       ['', [
+          Validators.required,
+          Validators.minLength(7)
+        ]],
         confirmPassword:['', Validators.required],
       }, { validators: this.passwordMatchValidator })
     });
@@ -61,6 +74,11 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  hasError(controlName: string): boolean {
+    const ctrl = (this.registerForm.get('klant') as FormGroup).get(controlName);
+    return !!(ctrl && ctrl.touched && ctrl.invalid);
+  }
+
   onSubmit(): void {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
@@ -69,7 +87,6 @@ export class RegisterComponent implements OnInit {
 
     const klantGroup = this.registerForm.get('klant') as FormGroup;
     const klant: KlantDto = {
-      // vul alleen wat je in je formulier hebt; adres/rijbewijs kun je later toevoegen
       voornaam:       klantGroup.get('voornaam')!.value,
       achternaam:     klantGroup.get('achternaam')!.value,
       telefoonnummer: klantGroup.get('telefoonnummer')!.value,
@@ -78,15 +95,14 @@ export class RegisterComponent implements OnInit {
     } as any;
 
     const payload: RegisterDto = {
-      loginNaam: klant.email,                           // of een eigen loginNaam-veld
-      password:  klantGroup.get('password')!.value,     // nu binnen 'klant'
+      loginNaam: klant.email,
+      password:  klantGroup.get('password')!.value,
       klant
     };
-
     this.http.post('http://localhost:8080/auth/register', payload, { withCredentials: true })
       .subscribe({
-        next: () => { /* success handling */ },
-        error: err => console.error('Fout bij registratie:', err)
+        next: () => this.router.navigate(['/vestigingen']),
+        error: err => this.serverError = err.error.error,
       });
-  }
+  }//this.serverError = err.error.error
 }

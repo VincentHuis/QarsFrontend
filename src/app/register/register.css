@@ -83,7 +83,7 @@ input, select {
 }
 button[type="submit"] {
   padding: 12px;
-  background-color: #000;
+  background-color: #C30022;
   color: #fff;
   font-weight: bold;
   border: none;
@@ -97,7 +97,11 @@ button[type="submit"]:hover {
 
 /* Validatie‑errors */
 .error {
-  color: #d00;
-  font-size: 0.75rem;
-  text-align: left;
+  color: #b00020;
+  font-size: .9rem;
+  margin: 4px 0 12px;
+}
+[aria-invalid="true"] {
+  border-color: #b00020;
+  outline-color: #b00020;
 }

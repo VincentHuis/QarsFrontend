@@ -5,36 +5,76 @@
       Heeft u al een account?
       <a routerLink="/login">Login</a>
     </p>
+    <div *ngIf="serverError" class="error">
+      {{ serverError }}
+    </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
       <div formGroupName="klant">
+        <!-- Voornaam -->
         <label for="voornaam">Voornaam</label>
-        <input id="voornaam" formControlName="voornaam" placeholder="Lightning">
+        <input id="voornaam" formControlName="voornaam" placeholder="Lightning" [attr.aria-invalid]="hasError('voornaam')"/>
+        <div *ngIf="hasError('voornaam')" class="error">
+          Voornaam is verplicht.
+        </div>
 
+        <!-- Achternaam -->
         <label for="achternaam">Achternaam</label>
-        <input id="achternaam" formControlName="achternaam" placeholder="Mcqueen ">
+        <input id="achternaam" formControlName="achternaam" placeholder="Mcqueen" [attr.aria-invalid]="hasError('achternaam')"/>
+        <div *ngIf="hasError('achternaam')" class="error">
+          Achternaam is verplicht.
+        </div>
 
-
+        <!-- Telefoonnummer -->
         <label for="telefoonnummer">Telefoonnummer</label>
-        <input id="telefoonnummer" formControlName="telefoonnummer" placeholder="0612345678">
+        <input id="telefoonnummer" formControlName="telefoonnummer" placeholder="0612345678" [attr.aria-invalid]="hasError('telefoonnummer')"/>
+        <div *ngIf="hasError('telefoonnummer')" class="error">
+          Telefoonnummer is verplicht.
+        </div>
+        <div *ngIf="registerForm.get('klant.telefoonnummer')?.hasError('pattern')" class="error">
+          Telefoonnummer moet een geldig Nederlands nummer zijn (06xxxxxxxx).
+        </div>
 
-
+        <!-- E-mail -->
         <label for="email">Email</label>
-        <input id="email" formControlName="email" placeholder="l.mcqueen@example.com">
+        <input id="email" formControlName="email" placeholder="l.mcqueen@example.com" [attr.aria-invalid]="hasError('email')"/>
+        <div *ngIf="hasError('email')" class="error">
+          Email is verplicht.
+        </div>
+        <div *ngIf="registerForm.get('klant.email')?.hasError('email')" class="error">
+          Vul een geldig email-adres in.
+        </div>
+        <div *ngIf="registerForm.get('klant.email')?.hasError('exists')" class="error">
+          Dit e-mailadres is al in gebruik.
+        </div>
 
-
+        <!-- Geboortedatum -->
         <label for="geboortedatum">Geboortedatum</label>
-        <input id="geboortedatum" type="date" formControlName="geboortedatum">
+        <input id="geboortedatum" type="date" formControlName="geboortedatum" [attr.aria-invalid]="hasError('geboortedatum')"/>
+        <div *ngIf="hasError('geboortedatum')" class="error">
+          Geboortedatum is verplicht.
+        </div>
 
+        <!-- Wachtwoord -->
         <label for="password">Wachtwoord</label>
-        <input id="password" type="password" formControlName="password" placeholder="*********">
+        <input id="password" type="password" formControlName="password" placeholder="*********" [attr.aria-invalid]="hasError('password')"/>
+        <div *ngIf="hasError('password')" class="error">
+          Wachtwoord is verplicht.
+        </div>
+        <div *ngIf="registerForm.get('klant.password')?.hasError('minlength')" class="error">
+          Wachtwoord moet minimaal 7 tekens bevatten.
+        </div>
 
+        <!-- Bevestig wachtwoord -->
         <label for="confirmPassword">Bevestig wachtwoord</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="*********">
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="*********" [attr.aria-invalid]="hasError('confirmPassword')"/>
+        <div *ngIf="hasError('password')" class="error">
+          Bevestigen is verplicht.
+        </div>
+        <div *ngIf="registerForm.get('klant.confirmPassword')?.hasError('mismatch')" class="error">
+          De wachtwoorden komen niet overeen.
+        </div>
       </div>
-
-
       <button type="submit">Registreren</button>
     </form>
   </div>
