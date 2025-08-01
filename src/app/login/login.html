@@ -1,9 +1,15 @@
-<div class="login-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-    <h2>Login</h2>
+<main>
+  <div class="form-container">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <h2>Aanmelden</h2>
+
+  <p class="subheading">
+    Nog geen account?
+    <a routerLink="/register">Registreer hier</a>
+  </p>
 
     <div>
-      <label for="username">Gebruikersnaam</label>
+      <label for="username">Email</label>
       <input id="username" formControlName="username" type="text" />
       <div class="error" *ngIf="submitted && loginForm.controls['username'].errors">
         Gebruikersnaam is verplicht.
@@ -23,3 +29,4 @@
     <button type="submit">Inloggen</button>
   </form>
 </div>
+</main>

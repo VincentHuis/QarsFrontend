@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import {Router, RouterLink} from '@angular/router';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 // import { CommonModule } from '@angular/common'; // alleen nodig als je *ngIf/NgFor gebruikt in deze template
 
 import { KlantDto } from '../dto/KlantDto';
@@ -16,7 +16,8 @@ import {CommonModule} from '@angular/common';
   imports: [
     ReactiveFormsModule,
     RouterLink,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   styleUrls: ['./register.css']
 })

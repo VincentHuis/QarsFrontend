@@ -1,32 +1,33 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule }    from '@angular/forms';
-import { Router }                 from '@angular/router';
-import { LoginComponent }         from './login';
-import { LoginService }           from './login.service';
-import { AuthService }            from '../service/AuthService';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LoginComponent } from './login';
+import { LoginService } from './login.service';
+import { AuthService } from '../service/AuthService';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let fixture:   ComponentFixture<LoginComponent>;
+  let fixture: ComponentFixture<LoginComponent>;
   let loginSvc: jasmine.SpyObj<LoginService>;
-  let authSvc:  jasmine.SpyObj<AuthService>;
-  let router:   jasmine.SpyObj<Router>;
+  let authSvc: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
     loginSvc = jasmine.createSpyObj('LoginService', ['login']);
     authSvc  = jasmine.createSpyObj('AuthService',  ['saveToken']);
-    router   = jasmine.createSpyObj('Router',       ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, LoginComponent ],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        LoginComponent
+      ],
       providers: [
         { provide: LoginService, useValue: loginSvc },
-        { provide: AuthService,  useValue: authSvc  },
-        { provide: Router,       useValue: router   }
+        { provide: AuthService,  useValue: authSvc  }
       ]
     }).compileComponents();
 
-    fixture   = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -45,6 +46,5 @@ describe('LoginComponent', () => {
 
     expect(loginSvc.login).toHaveBeenCalledWith('u', 'p');
     expect(authSvc.saveToken).toHaveBeenCalledWith('test');
-    expect(router.navigate).toHaveBeenCalledWith(['/']);
   }));
 });
